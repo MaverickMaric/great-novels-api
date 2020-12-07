@@ -10,4 +10,23 @@ const getAllAuthors = async (request, response) => {
   return response.send(authors)
 }
 
-module.exports = { getAllAuthors }
+const getAuthorByIdWithNovelsAndNovelGenres = async (request, response) => {
+  const { id } = request.params
+
+  const author = await models.Authors.findOne({
+    attributes: {
+      exclude: ['deletedAt']
+    },
+    where: { id },
+    include: [{
+      model: models.Novels,
+      include: [{ model: models.Genres }]
+    }]
+  })
+
+  return author
+    ? response.send(author)
+    : response.sendStatus(404)
+}
+
+module.exports = { getAllAuthors, getAuthorByIdWithNovelsAndNovelGenres }
