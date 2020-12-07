@@ -14,9 +14,6 @@ const getAuthorByIdWithNovelsAndNovelGenres = async (request, response) => {
   const { id } = request.params
 
   const author = await models.Authors.findOne({
-    attributes: {
-      exclude: ['deletedAt']
-    },
     where: { id },
     include: [{
       model: models.Novels,
