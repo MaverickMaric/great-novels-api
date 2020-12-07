@@ -1,10 +1,11 @@
-const novelsGenres = (connection, Sequelize, Novels, Genres) => {
-  return connection.define('enrollments', {
-    novelId: { type: Sequelize.INTEGER, references: { model: Novels, key: 'id' }, primaryKey: true },
-    genreId: { type: Sequelize.INTEGER, references: { model: Genres, key: 'id' }, primaryKey: true },
-    createdAt: { type: Sequelize.DATETIME },
-    updatedAt: { type: Sequelize.DATETIME }
+const NovelsGenres = (connection, Sequelize, Novels, Genres) => {
+  return connection.define('novelsGenres', {
+    id: { type: Sequelize.INTEGER, primaryKey: true },
+    novelId: { type: Sequelize.INTEGER, references: { model: Novels, key: 'id' } },
+    genreId: { type: Sequelize.INTEGER, references: { model: Genres, key: 'id' } },
+    createdAt: { type: Sequelize.DATE },
+    updatedAt: { type: Sequelize.DATE }
   }, { paranoid: true })
 }
 
-module.exports = novelsGenres
+module.exports = NovelsGenres
