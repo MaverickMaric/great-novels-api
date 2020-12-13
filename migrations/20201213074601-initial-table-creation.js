@@ -32,7 +32,7 @@ module.exports = {
     await queryInterface.createTable('novels', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       title: { type: Sequelize.STRING },
-      authorId: { type: Sequelize.STRING, references: { model: 'authors', key: 'id' } },
+      authorId: { type: Sequelize.INTEGER, references: { model: 'authors', key: 'id' } },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
       updatedAt: {
         type: Sequelize.DATE,
