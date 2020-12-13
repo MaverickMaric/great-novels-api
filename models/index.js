@@ -4,6 +4,9 @@ const GenresModel = require('./genres')
 const NovelsModel = require('./novels')
 const NovelsGenresModel = require('./novelsGenres')
 
+const environment = process.env.NODE_ENV || 'development'
+const config = allConfigs[environment]
+
 const connection = new Sequelize('novels', 'novels', 'GreatNovels!', {
   host: 'localhost', dialect: 'mysql'
 })
@@ -25,4 +28,5 @@ module.exports = {
   Genres,
   Novels,
   NovelsGenres,
+  Op: Sequelize.Op
 }
