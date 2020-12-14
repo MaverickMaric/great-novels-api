@@ -26,4 +26,26 @@ const getAuthorByIdWithNovelsAndNovelGenres = async (request, response) => {
     : response.sendStatus(404)
 }
 
-module.exports = { getAllAuthors, getAuthorByIdWithNovelsAndNovelGenres }
+const getAuthorByLastFuzzyWithNovelsAndNovelGenres = async (request, response) => {
+  try {
+    const { nameLast } = request.params
+
+    const authorFuzz = await models.Authors.findAll({
+      where: {
+        nameLast: { [models.Op.like]: `%${nameLast}%` }
+      },
+      include: [{
+        model: models.Novels,
+        include: [{ model: models.Genres }]
+      }]
+    })
+
+    return authorFuzz
+      ? response.send(authorFuzz)
+      : response.sendStatus(404).send('SOME OTHER MESSAGE')
+  } catch (error) {
+    return response.status(500).send('Unable to retrieve author, please try again')
+  }
+}
+
+module.exports = { getAllAuthors, getAuthorByIdWithNovelsAndNovelGenres, getAuthorByLastFuzzyWithNovelsAndNovelGenres }
