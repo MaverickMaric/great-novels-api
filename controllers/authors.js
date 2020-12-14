@@ -42,7 +42,7 @@ const getAuthorByLastFuzzyWithNovelsAndNovelGenres = async (request, response) =
 
     return authorFuzz
       ? response.send(authorFuzz)
-      : response.sendStatus(404).send('SOME OTHER MESSAGE')
+      : response.sendStatus(404)
   } catch (error) {
     return response.status(500).send('Unable to retrieve author, please try again')
   }
